@@ -1,0 +1,26 @@
+version: '3'
+
+tasks:
+  init:
+    desc: Init application. [Create .env file]
+    cmds:
+      - cp .env.example .env
+
+  up:
+    desc: Build docker containers.
+    cmd: docker compose up --build -d
+
+  rebuild:
+    desc: Rebuild application.
+    cmds:
+      - docker stop $(docker ps -aq)
+      - docker system prune -af --volumes
+      - docker compose up -d --build
+
+  fix-permissions:
+    desc: Fix permissions.
+    cmd: sudo chmod 777 -R ./api/
+
+  bash-api:
+    desc: Open api container terminal
+    cmd: docker exec -it co-api-php bash

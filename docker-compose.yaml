@@ -1,0 +1,8 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: api.Dockerfile
+    container_name: co-api-php
+    volumes:
+      - ./api/:/var/www/html:rw
